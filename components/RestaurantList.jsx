@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ScrollView,View, Text, StyleSheet } from 'react-native'
 import RestaurantCard from './RestaurantCard'
-
+import Random from './Random'
 export default function RestaurantList({navigation}) {
 
     const [foodList, setFoodList] = useState()
@@ -21,6 +21,7 @@ export default function RestaurantList({navigation}) {
                 <RestaurantCard food={food} key={food.id} navigation={navigation}/>
             ))}
             </ScrollView>
+            <Random navigation={navigation} foodList={foodList} />
         </View>
     )
 }
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: 'skyblue',
+        backgroundColor: 'lightgray',
         // marginTop: 70,
         // marginBottom: 24,
         width: "100%", //before 90%
