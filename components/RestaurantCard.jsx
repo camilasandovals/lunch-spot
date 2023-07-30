@@ -12,7 +12,6 @@ export default function RestaurantCard({food, navigation}) {
     }
 
     return(
-
         <TouchableOpacity onPress={chooseRestaurant}>
         <View style={styles.card}>
             <Text style= {styles.name}>{food.name}</Text>
@@ -28,19 +27,15 @@ const styles = StyleSheet.create({
         marginBottom: 4
     },
     img: {
-        width: 340,
+        width: '100%',
         height: 200, 
-        borderRadius: 6
     },
     card: {
-        width: '100%',
-        backgroundColor: 'white',
+        width: '90%',
+        backgroundColor: '#fff',
         marginVertical: 8,
-        padding: 16,
+      
         borderRadius: 10,
         alignItems: 'center',
-        borderColor: '#646D7E',
-        borderWidth: 2,
-
     }
 })

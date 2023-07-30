@@ -30,21 +30,20 @@ const styles = StyleSheet.create({
         fontSize: 15
     },
     img: {
-        width: 420,
-        height: 280,
-        borderRadius: 6,
+        width: '100%',
+        height: 380,
+      
 
     },
     title: {
         fontSize: 32,
         fontWeight: 700,
         marginVertical: 16,
-
     }
     ,
     main:{
         flex: 1,
-        backgroundColor: 'lightgray',
+        backgroundColor: '#fff',
         width: '100%',
         alignItems: 'center',
         padding: 19,

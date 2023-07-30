@@ -12,42 +12,42 @@ export default function RestaurantList({navigation}) {
         .catch(alert)
     }, [])
     return (
-        
-        <View style={styles.container}>
-            {/* <Text style={styles.title}>Restaurant List</Text> */}
             <ScrollView styles = {styles.list}>
-            {foodList && foodList.map(food => (
-                // <Text>{food.name}</Text> //check it is working
-                <RestaurantCard food={food} key={food.id} navigation={navigation}/>
-            ))}
+                <Text style = {styles.title}>Welcome</Text>
+                {foodList && foodList.map(food => (
+                    // <Text>{food.name}</Text> //check it is working
+                    <RestaurantCard food={food} key={food.id} navigation={navigation}/>
+                ))}
             </ScrollView>
-            <Random navigation={navigation} foodList={foodList} />
-        </View>
     )
 }
 
 const styles = StyleSheet.create({
     title: {
         fontSize: 30,
-        fontWeight: 700,
+        fontWeight: 800,
         color: '#151B54',
-        marginVertical: 8
-
+        marginVertical: 8,
+        marginTop: 60
     }, 
+
     list: {
         width: '100%',
+        flex: 1,
+        alignItems: 'center',
+        margin: 10
         // borderColor: 'red',
         // borderWidth: 2,
 
-    },
-    container: {
-        flex: 1,
-        backgroundColor: 'lightgray',
-        // marginTop: 70,
-        // marginBottom: 24,
-        width: "100%", //before 90%
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingBottom: 15
     }
+    // container: {
+    //     flex: 1,
+    //     backgroundColor: '#f9f9f9',
+    //     // marginTop: 70,
+    //     // marginBottom: 24,
+    //     width: "100%", //before 90%
+    //     alignItems: 'center',
+    //     justifyContent: 'flex-start',
+    //     paddingBottom: 15
+    // }
 })

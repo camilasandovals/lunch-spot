@@ -1,10 +1,12 @@
 import { createContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-// import { StyleSheet, View } from 'react-native';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import RestaurantList from "./components/RestaurantList";
 import RestaurantDetails from "./components/RestaurantDetails";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "./components/Login";
+import BottomTabNavigator from "./components/TabNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,14 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <RestaurantContext.Provider value = {{selectedRestaurant, setSelectedRestaurant}}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            options={{ title: "Restaurant List" }}
-            component={RestaurantList}
-          />
-          <Stack.Screen name="Details" component={RestaurantDetails} />
-        </Stack.Navigator>
+        <BottomTabNavigator />
       </RestaurantContext.Provider>
 
       {/* <View style={styles.container}>
