@@ -1,27 +1,33 @@
 import { ImageBackground, View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Login from "./Login";
+import Signup from "./SignUp";
+import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const image = {uri: 'https://images.pexels.com/photos/604969/pexels-photo-604969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
 
 export default function Landing() {
+  const navigation = useNavigation()
   return(
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        {/* Semi-transparent overlay */}
-        <View style={styles.overlay} />
+      <LinearGradient
+        colors={["rgba(0, 0, 25, 0.9)", "rgba(0, 0, 25, 0.5)"]} // Adjust the second color here
+        style={styles.overlay}
+      />
         
         <View style={styles.content}>
           <Text style={styles.title}>Discovering delicious and 
           <Text style={styles.greenText}> local </Text>food</Text>
           <TouchableOpacity
-            onPress={Login}
+            onPress={() => navigation.navigate("Login")}
             style={styles.button}
           >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={Login}
+            onPress={() => navigation.navigate("SignUp")}
             style={styles.secondaryButton}
           >
             <Text style={styles.secondaryButtonText}>Sign up</Text>
@@ -43,15 +49,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)', 
   },
   content: {
     height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 20,
+    marginTop: 180
   },
   title: {
-    margin: 20,
     fontSize: 68,
     fontWeight: 'bold',
     opacity: 1,
@@ -62,15 +67,15 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   greenText: {
-    color: 'green'
+    color: '#20A850'
   },
   button: {
     marginTop: 30,
-    backgroundColor: 'green',
+    backgroundColor: '#20A850',
     padding: 15,
     height: 60,
-    width: 300,
-    borderRadius: 10
+    width: '95%',
+    borderRadius: 30
   },
   buttonText: {
     color: '#fff',
@@ -83,11 +88,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 15,
     height: 60,
-    width: 300,
-    borderRadius: 10
+    width: '95%',
+    borderRadius: 30
   },
   secondaryButtonText: {
-    color: 'green',
+    color: '#20A850',
     fontSize: 25,
     textAlign: 'center',
     fontWeight: 700
