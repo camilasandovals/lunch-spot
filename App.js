@@ -1,3 +1,5 @@
+// App.js
+
 import React, { createContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -7,36 +9,37 @@ import Login from "./components/Login";
 import BottomTabNavigator from "./components/TabNavigator";
 import Landing from "./components/Landing";
 import Signup from "./components/SignUp";
+import RestaurantDetails from "./components/RestaurantDetails";
 
 const Stack = createNativeStackNavigator();
 
 export const RestaurantContext = createContext();
+export const UserContext = createContext();
 
 export default function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState();
-  const [userLoggedIn, setUserLoggedIn] = React.useState(false); 
+  const [userLoggedIn, setUserLoggedIn] = useState(false); 
 
   return (
     <NavigationContainer>
-      {userLoggedIn ? (
-        <RestaurantContext.Provider
-          value={{ selectedRestaurant, setSelectedRestaurant }}
-        >
-          <BottomTabNavigator />
-        </RestaurantContext.Provider>
-      ) : (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Landing" component={Landing} />
-          <Stack.Screen name="Login">
-            {(props) => (
-              // Pass userLoggedIn and setUserLoggedIn as props to the Login component
-              <Login {...props} userLoggedIn={userLoggedIn} setUserLoggedIn={setUserLoggedIn} />
+      <UserContext.Provider value={{ setUserLoggedIn }}>
+        <RestaurantContext.Provider value={{ selectedRestaurant, setSelectedRestaurant }}>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {userLoggedIn ? (
+              <>
+                <Stack.Screen name="Home" component={BottomTabNavigator} />
+                <Stack.Screen name="Details" component={RestaurantDetails} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="Landing" component={Landing} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="SignUp" component={Signup} />
+              </>
             )}
-          </Stack.Screen>
-          <Stack.Screen name="SignUp" component={Signup} />
-        </Stack.Navigator>
-      )}
-      <StatusBar style="auto" />
+          </Stack.Navigator>
+        </RestaurantContext.Provider>
+      </UserContext.Provider>
     </NavigationContainer>
   );
 }

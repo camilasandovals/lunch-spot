@@ -1,15 +1,27 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Button, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { UserContext } from "../App";
 
-export default function Login() {
+export default function SignUp() {
   const [email, onChangeEmail] = React.useState('') 
   const [password, onChangePassword] = React.useState('')
+  const [error, setError] = React.useState(null)
   const navigation = useNavigation()
 
-  
+  const { setUserLoggedIn } = React.useContext(UserContext)
+
+  const handleSignUp = () => {
+    if(email === '' || password === ''){
+      setError('Email ans password are required')
+      return
+    }
+    setUserLoggedIn(true);
+  };
+
+
   return (
     <SafeAreaView style = {styles.container}>
       <LinearGradient
@@ -29,7 +41,8 @@ export default function Login() {
         placeholder="Password"
         value={password}
         secureTextEntry/>
-        <TouchableOpacity onPress = {() => navigation.navigate("Restaurant")}style = {styles.button}>
+        {error? <Text style = {styles.error}>{error}</Text> : ''}
+        <TouchableOpacity onPress = {handleSignUp}style = {styles.button}>
           <Text style = {styles.buttonText}>Sign up</Text>
         </TouchableOpacity>
         <Text style = {styles.signUp}>Already Have an account?</Text>
@@ -69,6 +82,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     borderBottomWidth: 1,
     paddingHorizontal: 5
+  },
+  error: {
+    color: 'orange'
   },
   button: {
     height: 50,

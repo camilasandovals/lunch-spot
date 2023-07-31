@@ -3,13 +3,20 @@ import React from "react";
 import { Button, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { UserContext } from "../App";
 
-export default function Login({setUserLoggedIn}) {
+export default function Login() {
   const [email, onChangeEmail] = React.useState('') 
   const [password, onChangePassword] = React.useState('')
+  const [error, setError] = React.useState(null)
   const navigation = useNavigation()
+  const { setUserLoggedIn } = React.useContext(UserContext)
 
   const handleLogin = () => {
+    if (email === '' || password === ''){
+      setError('Email and password are required')
+      return
+    }
     setUserLoggedIn(true);
   };
 
@@ -32,6 +39,7 @@ export default function Login({setUserLoggedIn}) {
         placeholder="Password"
         value={password}
         secureTextEntry/>
+        {error? <Text style={styles.error}>{error} </Text> : ''}
         <TouchableOpacity onPress={handleLogin} style = {styles.button}>
           <Text style = {styles.buttonText}>Login</Text>
         </TouchableOpacity>
@@ -70,6 +78,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     borderBottomWidth: 1,
     paddingHorizontal: 5
+  },
+  error: {
+    color: 'orange'
   },
   button: {
     height: 50,

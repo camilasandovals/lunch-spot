@@ -2,19 +2,19 @@ import { useContext } from "react" // added to useContext
 import { StyleSheet, View, Text, Image } from "react-native"
 import { RestaurantContext } from "../App"// added to useContext
 
-export default function RestaurandDetails() {  
+export default function RestaurantDetails() {  
 
     const { selectedRestaurant } = useContext(RestaurantContext); // added to useContext
 
     return(
         <View style={styles.main}>
-            <Image style = {styles.img} source={{uri: selectedRestaurant.image}} />
-            <Text style = {styles.title}>{selectedRestaurant.name}</Text>
+            <Image style = {styles.img} source={{uri: selectedRestaurant?.image}} />
+            <Text style = {styles.title}>{selectedRestaurant?.name}</Text>
             <View style = {styles.meta}>
-                <Text>Cuisine: {selectedRestaurant.cuisine}</Text>
-                <Text>Raiting: {selectedRestaurant.rating.toFixed(1)}⭐️</Text>
+                <Text>Cuisine: {selectedRestaurant?.cuisine}</Text>
+                <Text>Raiting: {selectedRestaurant?.rating.toFixed(1)}⭐️</Text>
             </View>
-            <Text style = {styles.address}>{selectedRestaurant.address}</Text>
+            <Text style = {styles.address}>{selectedRestaurant?.address}</Text>
         </View>
     )
 }

@@ -1,53 +1,72 @@
 import { useState, useEffect } from 'react'
-import { ScrollView,View, Text, StyleSheet } from 'react-native'
+import { ScrollView, Text, StyleSheet, SafeAreaView } from 'react-native'
 import RestaurantCard from './RestaurantCard'
-import Random from './Random'
-export default function RestaurantList({navigation}) {
+import { SearchBar } from 'react-native-screens'
+import { useNavigation } from '@react-navigation/native';
 
-    const [foodList, setFoodList] = useState()
+export default function RestaurantList() {
+    const [foodList, setFoodList] = useState();
+    const [searchQuery, setSearchQuery] = useState('');
+    const navigation = useNavigation()
+  
     useEffect(() => {
-        fetch('https://my-first-firestore-bc.web.app/restaurants')
+      fetch('https://my-first-firestore-bc.web.app/restaurants')
         .then(resp => resp.json())
         .then(setFoodList)
-        .catch(alert)
-    }, [])
+        .catch(alert);
+    }, []);
+    
+    const filteredFoodList = foodList
+      ? foodList.filter(food =>
+          food.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : [];
+  
+    // Exclude the first item from the filteredFoodList
+    const filteredFoodListWithoutFirst = filteredFoodList.slice(1);
+        
+    const handleRestaurantSelection = (food) => {
+        setSelectedRestaurant(food);
+        navigation.navigate("Details"); // Navigate to the "Details" screen
+      };
+      
     return (
-            <ScrollView styles = {styles.list}>
-                <Text style = {styles.title}>Welcome</Text>
-                {foodList && foodList.map(food => (
-                    // <Text>{food.name}</Text> //check it is working
-                    <RestaurantCard food={food} key={food.id} navigation={navigation}/>
-                ))}
-            </ScrollView>
-    )
-}
+      <SafeAreaView style={styles.container}>
+        <SearchBar
+          placeholder="Search restaurants..."
+          onChangeText={text => setSearchQuery(text)}
+          value={searchQuery}
+        />
+          
+        <ScrollView contentContainerStyle={styles.list}>
+        {filteredFoodList.map((food) => (
+        <RestaurantCard
+            food={food}
+            key={food.id}
+            onSelectRestaurant={() => handleRestaurantSelection(food)} // Pass the prop here
+        />
+        ))}
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+  
 
-const styles = StyleSheet.create({
-    title: {
-        fontSize: 30,
-        fontWeight: 800,
-        color: '#151B54',
-        marginVertical: 8,
-        marginTop: 60
-    }, 
-
+  const styles = StyleSheet.create({
+    image: {
+      height: 350,
+      width: '100%',
+    },
     list: {
-        width: '100%',
-        flex: 1,
-        alignItems: 'center',
-        margin: 10
-        // borderColor: 'red',
-        // borderWidth: 2,
-
-    }
-    // container: {
-    //     flex: 1,
-    //     backgroundColor: '#f9f9f9',
-    //     // marginTop: 70,
-    //     // marginBottom: 24,
-    //     width: "100%", //before 90%
-    //     alignItems: 'center',
-    //     justifyContent: 'flex-start',
-    //     paddingBottom: 15
-    // }
-})
+      width: '100%',
+      alignItems: 'center',
+      paddingBottom: 15,
+    },
+    container: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 25, 1)',
+      width: '100%', //before 90%
+    },
+  })
+  
+  
