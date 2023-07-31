@@ -53,14 +53,14 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         borderRadius: 25,
         alignItems: 'center',
-        shadowColor: '#fff',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        // shadowColor: '#fff',
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 3.84,
+        // elevation: 5,
     },
     gradient: {
         position: 'absolute',

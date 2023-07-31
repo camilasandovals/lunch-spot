@@ -39,11 +39,11 @@ export default function RestaurantList() {
         />
           
         <ScrollView contentContainerStyle={styles.list}>
-        {filteredFoodList.map((food) => (
+        {filteredFoodListWithoutFirst.map((food) => (
         <RestaurantCard
             food={food}
             key={food.id}
-            onSelectRestaurant={() => handleRestaurantSelection(food)} // Pass the prop here
+            onSelectRestaurant={() => handleRestaurantSelection(food)} 
         />
         ))}
         </ScrollView>
